@@ -2,3 +2,7 @@
 	path = aflnet
 	url = https://github.com/andronat/aflnet.git
 	branch = mymaster
+[submodule "snapfuzz"]
+	path = snapfuzz
+	url = https://github.com/andronat/SaBRe.git
+	branch = snapfuzz
