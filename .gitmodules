@@ -1,0 +1,4 @@
+[submodule "aflnet"]
+	path = aflnet
+	url = https://github.com/andronat/aflnet.git
+	branch = mymaster
