@@ -6,8 +6,9 @@ nproc=$(nproc)
 make -C aflnet/ -j$nproc
 make -C aflnet/llvm_mode -j$nproc
 
-mkdir -p snapfuzz/build
-cd snapfuzz/build
+cd snapfuzz
+git am ../87-debug-lookup.patch
+cd build
 if [[ ! -f Makefile ]]; then
 	cmake .. -DCMAKE_BUILD_TYPE=RELEASE
 fi
