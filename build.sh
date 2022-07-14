@@ -7,7 +7,9 @@ make -C aflnet/ -j$nproc
 make -C aflnet/llvm_mode -j$nproc
 
 cd snapfuzz
-git am ../87-debug-lookup.patch
+# TODO: This means we're not idempotent, which isn't ideal, but
+# Fine in docker.
+git apply ../87-debug-lookup.patch
 cd build
 if [[ ! -f Makefile ]]; then
 	cmake .. -DCMAKE_BUILD_TYPE=RELEASE
