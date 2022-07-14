@@ -10,6 +10,7 @@ cd snapfuzz
 # TODO: This means we're not idempotent, which isn't ideal, but
 # Fine in docker.
 git apply ../87-debug-lookup.patch
+mkdir build
 cd build
 if [[ ! -f Makefile ]]; then
 	cmake .. -DCMAKE_BUILD_TYPE=RELEASE
