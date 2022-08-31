@@ -1,0 +1,36 @@
+From 2569881f6fa577b496cfc5c8b204ddd907361e4c Mon Sep 17 00:00:00 2001
+From: Nixon Enraght-Moony <nixon.emoony@gmail.com>
+Date: Wed, 31 Aug 2022 15:00:31 +0100
+Subject: [PATCH] Add clock_nanosleep(2) support
+
+---
+ plugins/sbr-afl/main.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/plugins/sbr-afl/main.c b/plugins/sbr-afl/main.c
+index 79c63f78..8481ee08 100644
+--- a/plugins/sbr-afl/main.c
++++ b/plugins/sbr-afl/main.c
+@@ -811,6 +811,13 @@ int inanosleep(const struct timespec *req, struct timespec *rem) {
+   nanosleep((const struct timespec[]){{0, 1L}}, NULL);
+   return 0;
+ }
++
++ int iclock_nanosleep(clockid_t clockid, int flags,
++                      const struct timespec *request,
++                      struct timespec *remain) {
++  nanosleep((const struct timespec[]){{0, 1L}}, NULL);
++  return 0;
++}
+ #endif // SF_SLEEP
+ 
+ // static int cpus[8] = {0};
+@@ -968,6 +975,8 @@ long handle_syscall(long sc_no, long arg1, long arg2, long arg3, long arg4,
+ #ifdef SF_SLEEP
+   } else if (sc_no == SYS_nanosleep) {
+     return inanosleep((const struct timespec *)arg1, (struct timespec *)arg2);
++  } else if (sc_no == SYS_clock_nanosleep) {
++    return iclock_nanosleep(arg1, arg2, (const struct timespec *)arg3, (struct timespec *)arg4);
+ #endif // SF_SLEEP
+     // } else if (sc_no == SYS_getpid) {
+     //   assert(false);

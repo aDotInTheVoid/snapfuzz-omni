@@ -10,6 +10,8 @@ cd snapfuzz
 # TODO: This means we're not idempotent, which isn't ideal, but
 # Fine in docker.
 git apply ../87-debug-lookup.patch
+git apply ../6-clock-nanosleep.patch
+
 mkdir build
 cd build
 if [[ ! -f Makefile ]]; then
